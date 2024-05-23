@@ -13,7 +13,6 @@ type TCTextAreaProps = {
   autoComplete?: string;
   sx?: SxProps;
   row?: number;
-  cols?: number;
 };
 const CInput = ({
   type = "text",
@@ -27,7 +26,6 @@ const CInput = ({
   autoFocus,
   sx,
   row,
-  cols,
 }: TCTextAreaProps) => {
   const { control } = useFormContext();
   return (

@@ -5,6 +5,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import { SxProps } from "@mui/material";
 import { Controller, useFormContext } from "react-hook-form";
+import { boolean } from "zod";
 type TCDatePickerProps = {
   name: string;
   size?: "small" | "medium";
@@ -14,6 +15,8 @@ type TCDatePickerProps = {
   defaultValue?: dayjs.Dayjs;
   variant?: "standard" | "outlined" | "filled";
   required?: boolean;
+  disablePast?: boolean;
+  disableFuture?: boolean;
 };
 const CDatePicker = ({
   name,
@@ -24,6 +27,8 @@ const CDatePicker = ({
   defaultValue,
   required = false,
   variant = "outlined",
+  disablePast,
+  disableFuture,
 }: TCDatePickerProps) => {
   const { control } = useFormContext();
 
@@ -37,7 +42,8 @@ const CDatePicker = ({
           <DatePicker
             label={label}
             timezone='system'
-            disablePast
+            disablePast={disablePast}
+            disableFuture={disableFuture}
             onChange={(date) => onChange(date)}
             value={value || Date.now()}
             {...filed}

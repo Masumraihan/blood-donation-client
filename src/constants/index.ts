@@ -8,3 +8,7 @@ export const BloodTypes: string[] = [
   "O_POSITIVE",
   "O_NEGATIVE",
 ];
+
+export const authKey = {
+  token: "token",
+};
