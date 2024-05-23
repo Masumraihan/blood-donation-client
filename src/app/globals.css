@@ -3,3 +3,7 @@
   padding: 0;
   margin: 0;
 }
+.textarea:focus {
+  outline: 0;
+  border-color: #f44336;
+}

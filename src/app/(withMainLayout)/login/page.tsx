@@ -1,4 +1,7 @@
 "use client";
+import CForm from "@/components/forms/CForm";
+import CInput from "@/components/forms/CInput";
+import { zodResolver } from "@hookform/resolvers/zod";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
@@ -8,19 +11,28 @@ import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Grid from "@mui/material/Grid";
-import Link from "@mui/material/Link";
-import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import * as React from "react";
+import Link from "next/link";
+import { FieldValues } from "react-hook-form";
+import { z } from "zod";
+
+const loginFormSchema = z.object({
+  email: z
+    .string({ required_error: "Email is Required" })
+    .email({ message: "Please provide a valid email" }),
+  password: z
+    .string({ required_error: "Please provider your password" })
+    .min(6, { message: "Your Password must be 6 character" }),
+});
 
 const LoginPage = () => {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+  const handleSubmit = (values: FieldValues) => {
+    console.log(values);
+  };
+
+  const defaultValues = {
+    email: "",
+    password: "",
   };
 
   return (
@@ -34,7 +46,7 @@ const LoginPage = () => {
       }}
     >
       <>
-        <Box>
+        <Box sx={{ maxWidth: "xs" }}>
           <CssBaseline />
           <Box
             sx={{
@@ -50,47 +62,44 @@ const LoginPage = () => {
             <Typography component='h1' variant='h5'>
               Login
             </Typography>
-            <Box sx={{ mt: 1 }}>
-              <TextField
-                margin='normal'
-                required
+            <CForm
+              onSubmit={handleSubmit}
+              defaultValues={defaultValues}
+              resolver={zodResolver(loginFormSchema)}
+            >
+              <CInput
                 fullWidth
-                id='email'
                 label='Email Address'
                 name='email'
                 autoComplete='email'
                 autoFocus
+                sx={{ mt: 1 }}
               />
-              <TextField
-                margin='normal'
-                required
+              <CInput
                 fullWidth
                 name='password'
                 label='Password'
                 type='password'
                 id='password'
                 autoComplete='current-password'
+                sx={{ mt: 1 }}
               />
               <FormControlLabel
                 control={<Checkbox value='remember' color='primary' />}
                 label='Remember me'
               />
-              <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
+              <Button type='submit' fullWidth sx={{ mt: 3, mb: 2 }}>
                 Sign In
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href='#' variant='body2'>
-                    Forgot password?
-                  </Link>
+                  <Link href='/login'>Forgot password?</Link>
                 </Grid>
                 <Grid item>
-                  <Link href='#' variant='body2'>
-                    {"Don't have an account? Sign Up"}
-                  </Link>
+                  <Link href='/register'>{"Don't have an account? Sign Up"}</Link>
                 </Grid>
               </Grid>
-            </Box>
+            </CForm>
           </Box>
         </Box>
       </>
