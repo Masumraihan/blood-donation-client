@@ -4,6 +4,7 @@ import CForm from "@/components/forms/CForm";
 import CInput from "@/components/forms/CInput";
 import CSelect from "@/components/forms/CSelect";
 import { BloodTypes } from "@/constants";
+import login from "@/services/actions/login";
 import register from "@/services/actions/register";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoadingButton } from "@mui/lab";
@@ -59,13 +60,19 @@ const RegisterForm = () => {
     values.age = parseInt(values.age);
 
     if (confirmPassword !== values.password) {
-      setError("password and confirm password not matched");
+      return setError("password and confirm password not matched");
     }
 
     try {
       const res = await register(values);
       if (res.success) {
         toast.success("Register successful");
+        const loginResponse = await login({ email: values.email, password: values.password }, "/");
+        if (loginResponse.success) {
+          toast.success("Login successful");
+        } else {
+          setError(res.message || "something went wrong");
+        }
       } else {
         setError(res.message || "something went wrong");
       }

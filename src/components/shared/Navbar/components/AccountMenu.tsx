@@ -1,3 +1,6 @@
+"use client";
+import placeholder from "@/assets/user_placeholder.png";
+import { TMyProfile } from "@/types";
 import Logout from "@mui/icons-material/Logout";
 import Settings from "@mui/icons-material/Settings";
 import Avatar from "@mui/material/Avatar";
@@ -8,10 +11,11 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Tooltip from "@mui/material/Tooltip";
-import * as React from "react";
+import Image from "next/image";
+import { useState } from "react";
 
-export default function AccountMenu() {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+const AccountMenu = ({ data }: { data: TMyProfile | undefined }) => {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -20,7 +24,7 @@ export default function AccountMenu() {
     setAnchorEl(null);
   };
   return (
-    <React.Fragment>
+    <>
       <Box sx={{ display: "flex", alignItems: "center", justifyContent: "end" }}>
         <Tooltip title='Account settings'>
           <IconButton
@@ -71,10 +75,14 @@ export default function AccountMenu() {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem onClick={handleClose}>
-          <Avatar /> Profile
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <Avatar /> My account
+          <Image
+            src={data?.userProfile.photo || placeholder}
+            width={32}
+            height={32}
+            style={{ marginRight: "4px" }}
+            alt='user photo'
+          />
+          My account
         </MenuItem>
         <Divider />
         <MenuItem onClick={handleClose}>
@@ -90,6 +98,7 @@ export default function AccountMenu() {
           Logout
         </MenuItem>
       </Menu>
-    </React.Fragment>
+    </>
   );
-}
+};
+export default AccountMenu;
