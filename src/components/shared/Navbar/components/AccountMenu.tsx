@@ -26,7 +26,7 @@ const AccountMenu = ({ data }: { data: TMyProfile | undefined }) => {
   return (
     <>
       <Box sx={{ display: "flex", alignItems: "center", justifyContent: "end" }}>
-        <Tooltip title='Account settings'>
+        <Tooltip title={data?.name}>
           <IconButton
             onClick={handleClick}
             size='small'

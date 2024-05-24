@@ -1,12 +1,14 @@
 "use client";
+import { toggleMenu } from "@/redux/featues/mobileMenuSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import MenuIcon from "@mui/icons-material/Menu";
 import IconButton from "@mui/material/IconButton";
-import { useState } from "react";
 
 const MobileMenuTrigger = () => {
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const mobileOpen = useAppSelector((state) => state.mobileMenu.isMenuOpen);
+  const dispatch = useAppDispatch();
   const handleDrawerToggle = () => {
-    setMobileOpen((prevState) => !prevState);
+    dispatch(toggleMenu(!mobileOpen));
   };
   return (
     <IconButton
@@ -14,7 +16,7 @@ const MobileMenuTrigger = () => {
       aria-label='open drawer'
       edge='start'
       onClick={handleDrawerToggle}
-      sx={{ mr: 2, display: { sm: "none" } }}
+      sx={{ display: { sm: "none" } }}
     >
       <MenuIcon />
     </IconButton>

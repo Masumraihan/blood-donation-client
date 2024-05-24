@@ -1,9 +1,8 @@
-import * as React from "react";
-import { SxProps, styled } from "@mui/material/styles";
-import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import { Controller, useFormContext } from "react-hook-form";
 import { Input } from "@mui/material";
+import Button from "@mui/material/Button";
+import { SxProps } from "@mui/material/styles";
+import { Controller, useFormContext } from "react-hook-form";
 
 type THFileUploaderProps = {
   name: string;

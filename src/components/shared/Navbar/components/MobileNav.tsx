@@ -1,5 +1,7 @@
 "use client";
 import logo from "@/assets/logo.png";
+import { toggleMenu } from "@/redux/featues/mobileMenuSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
@@ -9,18 +11,18 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+
 type TNavItems = { name: string; link: string }[];
 type TMobileNavProps = {
   window?: () => Window;
-
   navItems: TNavItems;
 };
-const MobileNav = ({ window, navItems }: TMobileNavProps) => {
-  const [mobileOpen, setMobileOpen] = useState(false);
 
+const MobileNav = ({ window, navItems }: TMobileNavProps) => {
+  const mobileOpen = useAppSelector((state) => state.mobileMenu.isMenuOpen);
+  const dispatch = useAppDispatch();
   const handleDrawerToggle = () => {
-    setMobileOpen((prevState) => !prevState);
+    dispatch(toggleMenu(!mobileOpen));
   };
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>

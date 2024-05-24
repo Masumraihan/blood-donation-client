@@ -40,14 +40,16 @@ const NavMenus = ({ data }: Props) => {
               width: "100%",
             }}
           >
-            {data ? (
+            {!data ? (
               <AccountMenu data={data} />
             ) : (
-              <Link href='/login'>
-                <Button variant='text' sx={{ color: "#000" }}>
-                  Login
-                </Button>
-              </Link>
+              <Box sx={{ display: "flex", justifyContent: "end" }}>
+                <Link href='/login'>
+                  <Button variant='text' sx={{ color: "#000" }}>
+                    Login
+                  </Button>
+                </Link>
+              </Box>
             )}
           </Box>
           <Box
@@ -74,7 +76,7 @@ const NavMenus = ({ data }: Props) => {
                   </Button>
                 </Link>
               ))}
-              {data ? (
+              {!data ? (
                 <AccountMenu data={data} />
               ) : (
                 <Link href='/login'>
