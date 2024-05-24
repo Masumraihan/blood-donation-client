@@ -40,7 +40,7 @@ const NavMenus = ({ data }: Props) => {
               width: "100%",
             }}
           >
-            {!data ? (
+            {data ? (
               <AccountMenu data={data} />
             ) : (
               <Box sx={{ display: "flex", justifyContent: "end" }}>
@@ -76,7 +76,7 @@ const NavMenus = ({ data }: Props) => {
                   </Button>
                 </Link>
               ))}
-              {!data ? (
+              {data ? (
                 <AccountMenu data={data} />
               ) : (
                 <Link href='/login'>

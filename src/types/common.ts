@@ -23,3 +23,28 @@ export type TMyProfile = {
     updateAt: string;
   };
 };
+
+export type TMyBloodInfo = {
+  id: string;
+  donorId: string;
+  requesterId: string;
+  phoneNumber: string;
+  dateOfDonation: string;
+  hospitalName: string;
+  hospitalAddress: string;
+  reason: string;
+  requestStatus: string;
+  createdAt: string;
+  updateAt: string;
+  donor?: TRequester;
+  requester?: TRequester;
+};
+
+export type TRequester = {
+  id: string;
+  name: string;
+  email: string;
+  location: string;
+  bloodType: string;
+  availability: boolean;
+};

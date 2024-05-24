@@ -20,6 +20,7 @@ const Navbar = async ({ children }: { children: React.ReactNode }) => {
     const result = await res.json();
     data = result?.data;
   }
+  console.log(data);  
 
   return (
     <Container sx={{ display: "flex" }}>

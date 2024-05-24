@@ -12,17 +12,25 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Tooltip from "@mui/material/Tooltip";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const AccountMenu = ({ data }: { data: TMyProfile | undefined }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const router = useRouter();
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleRedirect = () => {
+    handleClose();
+    router.push("/profile");
+  };
+
   return (
     <>
       <Box sx={{ display: "flex", alignItems: "center", justifyContent: "end" }}>
@@ -74,12 +82,11 @@ const AccountMenu = ({ data }: { data: TMyProfile | undefined }) => {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleRedirect} sx={{ display: "flex", alignItems: "center", gap: 1 }}>
           <Image
             src={data?.userProfile.photo || placeholder}
             width={32}
             height={32}
-            style={{ marginRight: "4px" }}
             alt='user photo'
           />
           My account

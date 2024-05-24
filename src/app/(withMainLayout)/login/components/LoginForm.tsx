@@ -9,6 +9,7 @@ import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Grid from "@mui/material/Grid";
+import { redirect } from "next/dist/server/api-utils";
 import Link from "next/link";
 import { useState } from "react";
 import { FieldValues } from "react-hook-form";
@@ -31,8 +32,8 @@ const LoginForm = () => {
     setLoading(true);
     setError("");
     try {
-      const res = await login(values);
-      if (res.success) {
+      const res = await login(values, "/");
+      if (res?.success) {
         toast.success("Login successful");
       } else {
         setError(res.message || "something went wrong");

@@ -12,3 +12,9 @@ export const BloodTypes: string[] = [
 export const authKey = {
   token: "token",
 };
+
+export const requestStatus = {
+  PENDING: "PENDING",
+  APPROVED: "APPROVED",
+  REJECTED: "REJECTED",
+};
