@@ -12,9 +12,8 @@ const ChangeProfilePhoto = ({ photo }: { photo: string | null | undefined }) => 
     const target = e.target as HTMLInputElement;
     const file = target.files?.[0];
     const formData = new FormData();
-    formData.append("photo", file as Blob);
+    formData.append("image", file as Blob);
     const res: TImageBBResponse = await uploadIntoImageBB(formData);
-    console.log(res);
   };
 
   const VisuallyHiddenInput = styled("input")({

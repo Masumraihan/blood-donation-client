@@ -87,3 +87,29 @@ export type TImageBBResponse = {
   success: boolean;
   status: number;
 };
+
+export type TMeta = {
+  page: number;
+  pageSize: number;
+  pageCount: number;
+  total: number;
+};
+
+export type TResponseSuccess<T> = {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  meta?: { page: number; limit: number; total: number };
+  data: T;
+};
+
+export type TIssue = {
+  field: string | number;
+  message: string;
+};
+
+export type TErrorResponse = {
+  statusCode: number;
+  message: string;
+  errorDetails: { issues: TIssue[] } | null;
+};

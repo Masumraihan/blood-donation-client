@@ -1,11 +1,11 @@
 const uploadIntoImageBB = async (formData: FormData) => {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/upload`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_IMAGEBB_API_URL}`, {
       method: "POST",
       body: formData,
     });
-    const icon = await response.json();
-    return icon;
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.log(error);
   }

@@ -21,21 +21,21 @@ const MyBloodRequest = async () => {
 
   return (
     <div>
+      <Typography
+        variant='h5'
+        sx={{
+          textAlign: "center",
+          backgroundColor: "#f5f5f5",
+          padding: "1rem",
+          borderRadius: "1rem",
+        }}
+      >
+        My blood request
+      </Typography>
       {!data?.length ? (
-        <Typography>No blood request</Typography>
+        <Typography sx={{ textAlign: "center", mt: "1rem" }}>No blood request</Typography>
       ) : (
         <>
-          <Typography
-            variant='h5'
-            sx={{
-              textAlign: "center",
-              backgroundColor: "#f5f5f5",
-              padding: "1rem",
-              borderRadius: "1rem",
-            }}
-          >
-            My blood request
-          </Typography>
           <Grid container sx={{ padding: "1rem" }}>
             {data.map((request: TMyBloodInfo) => (
               <Grid
