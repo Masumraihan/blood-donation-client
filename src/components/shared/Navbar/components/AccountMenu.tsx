@@ -1,5 +1,7 @@
 "use client";
 import placeholder from "@/assets/user_placeholder.png";
+import { authKey } from "@/constants";
+import logout from "@/services/actions/logout";
 import { TMyProfile } from "@/types";
 import Logout from "@mui/icons-material/Logout";
 import Settings from "@mui/icons-material/Settings";
@@ -31,6 +33,11 @@ const AccountMenu = ({ data }: { data: TMyProfile | undefined }) => {
     router.push("/profile");
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem(authKey.token);
+    logout();
+  };
+
   return (
     <>
       <Box sx={{ display: "flex", alignItems: "center", justifyContent: "end" }}>
@@ -43,7 +50,19 @@ const AccountMenu = ({ data }: { data: TMyProfile | undefined }) => {
             aria-haspopup='true'
             aria-expanded={open ? "true" : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+            {data?.userProfile?.photo ? (
+              <Image
+                alt={data?.name}
+                src={data?.userProfile?.photo}
+                width={32}
+                height={32}
+                style={{ borderRadius: "50%" }}
+              />
+            ) : (
+              <Avatar sx={{ width: 32, height: 32, textTransform: "uppercase" }}>
+                {data?.name.slice(0, 1)}
+              </Avatar>
+            )}
           </IconButton>
         </Tooltip>
       </Box>
@@ -88,6 +107,7 @@ const AccountMenu = ({ data }: { data: TMyProfile | undefined }) => {
             width={32}
             height={32}
             alt='user photo'
+            style={{ borderRadius: "50%" }}
           />
           My account
         </MenuItem>
@@ -98,7 +118,7 @@ const AccountMenu = ({ data }: { data: TMyProfile | undefined }) => {
           </ListItemIcon>
           Settings
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <Logout fontSize='small' />
           </ListItemIcon>

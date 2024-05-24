@@ -1,5 +1,5 @@
 import logo from "@/assets/logo.png";
-import { Box, Container, Grid, Link, Typography } from "@mui/material";
+import { Box, Container, Divider, Grid, Link, Typography } from "@mui/material";
 import { Facebook, Twitter, Instagram, LinkedIn } from "@mui/icons-material";
 import Image from "next/image";
 
@@ -14,6 +14,7 @@ const Footer = () => {
       }}
     >
       <Container maxWidth='lg'>
+        <Divider sx={{ mb: 3, border: "1px solid lightgray" }} />
         <Grid container spacing={4} justifyContent='space-between' alignItems='center'>
           <Grid item>
             <Box display='flex' alignItems='center'>

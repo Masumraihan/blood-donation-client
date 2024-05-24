@@ -1,6 +1,7 @@
 "use client";
 import CForm from "@/components/forms/CForm";
 import CInput from "@/components/forms/CInput";
+import { authKey } from "@/constants";
 import login from "@/services/actions/login";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoadingButton } from "@mui/lab";
@@ -34,9 +35,10 @@ const LoginForm = () => {
     try {
       const res = await login(values, "/");
       if (res?.success) {
+        localStorage.setItem(authKey.token, res?.data?.token);
         toast.success("Login successful");
       } else {
-        setError(res.message || "something went wrong");
+        setError(res?.message || "something went wrong");
       }
     } catch (error) {
       console.log(error);

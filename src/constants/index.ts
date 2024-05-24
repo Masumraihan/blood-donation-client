@@ -18,3 +18,8 @@ export const requestStatus = {
   APPROVED: "APPROVED",
   REJECTED: "REJECTED",
 };
+
+export const userRole = {
+  DONOR: "DONOR",
+  ADMIN: "ADMIN",
+};

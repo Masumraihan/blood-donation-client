@@ -21,6 +21,7 @@
     "@mui/x-date-pickers": "^7.5.0",
     "@reduxjs/toolkit": "^2.2.5",
     "dayjs": "^1.11.11",
+    "jwt-decode": "^4.0.0",
     "next": "14.0.3",
     "react": "^18",
     "react-dom": "^18",

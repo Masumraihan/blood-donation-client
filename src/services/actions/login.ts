@@ -1,5 +1,3 @@
-"use server";
-
 import { FieldValues } from "react-hook-form";
 import setAccessToken from "./setAccessToken";
 
@@ -18,7 +16,6 @@ const login = async (values: FieldValues, redirect?: string) => {
   if (data.success && data?.data?.token) {
     setAccessToken(data?.data?.token, { redirect });
   }
-
   return data;
 };
 

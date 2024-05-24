@@ -3,7 +3,7 @@ import CDatePicker from "@/components/forms/CDatePicker";
 import CForm from "@/components/forms/CForm";
 import CInput from "@/components/forms/CInput";
 import CSelect from "@/components/forms/CSelect";
-import { BloodTypes } from "@/constants";
+import { BloodTypes, authKey } from "@/constants";
 import login from "@/services/actions/login";
 import register from "@/services/actions/register";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -69,6 +69,7 @@ const RegisterForm = () => {
         toast.success("Register successful");
         const loginResponse = await login({ email: values.email, password: values.password }, "/");
         if (loginResponse.success) {
+          localStorage.setItem(authKey.token, res?.data?.token);
           toast.success("Login successful");
         } else {
           setError(res.message || "something went wrong");
