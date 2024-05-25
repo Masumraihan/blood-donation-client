@@ -70,7 +70,6 @@ const RegisterForm = () => {
         const loginResponse = await login({ email: values.email, password: values.password }, "/");
         if (loginResponse.success) {
           localStorage.setItem(authKey.token, res?.data?.token);
-          toast.success("Login successful");
         } else {
           setError(res.message || "something went wrong");
         }

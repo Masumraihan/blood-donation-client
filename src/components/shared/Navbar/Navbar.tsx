@@ -5,12 +5,12 @@ import Toolbar from "@mui/material/Toolbar";
 import NavMenus from "./components/NavMenus";
 import { cookies } from "next/headers";
 import { authKey } from "@/constants";
-import { TMyProfile } from "@/types";
+import { TUser } from "@/types";
 
 const Navbar = async ({ children }: { children: React.ReactNode }) => {
   const cookieStore = cookies();
   const token = cookieStore.get(authKey.token);
-  let data: TMyProfile | undefined;
+  let data: TUser | undefined;
   if (token) {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/my-profile`, {
       headers: {

@@ -1,5 +1,5 @@
 import logo from "@/assets/logo.png";
-import { TMyProfile } from "@/types";
+import { TUser } from "@/types";
 import { Typography } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -23,7 +23,7 @@ const navItems = [
 ];
 
 interface Props {
-  data: TMyProfile | undefined;
+  data: TUser | undefined;
 }
 
 const NavMenus = ({ data }: Props) => {

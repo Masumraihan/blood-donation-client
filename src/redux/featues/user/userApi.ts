@@ -1,6 +1,6 @@
 import baseApi from "@/redux/api/baseApi";
 import { tagTypes } from "@/redux/tagTypes";
-import { TMyProfile } from "@/types";
+import { TUser } from "@/types";
 
 const userApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -10,7 +10,7 @@ const userApi = baseApi.injectEndpoints({
           url: "/my-profile",
         };
       },
-      transformResponse: (response: { data: TMyProfile }) => response.data,
+      transformResponse: (response: { data: TUser }) => response.data,
       providesTags: [tagTypes.USER],
     }),
     updateProfile: build.mutation({

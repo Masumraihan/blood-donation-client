@@ -6,7 +6,7 @@ import CSelect from "@/components/forms/CSelect";
 import CFullScreenModal from "@/components/shared/FullScreenModal/CFullScreenModal";
 import { BloodTypes } from "@/constants";
 import { useUpdateProfileMutation } from "@/redux/featues/user/userApi";
-import { TMyProfile } from "@/types";
+import { TUser } from "@/types";
 import { LoadingButton } from "@mui/lab";
 import { Grid, Typography } from "@mui/material";
 import dayjs from "dayjs";
@@ -18,7 +18,7 @@ import toast from "react-hot-toast";
 type TUpdateProfileModalProps = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  data: TMyProfile | undefined;
+  data: TUser | undefined;
 };
 
 const UpdateProfileModal = ({ open, setOpen, data }: TUpdateProfileModalProps) => {
@@ -31,12 +31,14 @@ const UpdateProfileModal = ({ open, setOpen, data }: TUpdateProfileModalProps) =
 
     values.lastDonationDate = dayjs(values?.lastDonationDate).format("DD MMMM YYYY");
     values.age = parseInt(values?.age);
+    values.availability = values?.availability === "Yes";
     const updatedValues = {
       name: values?.name,
       email: values?.email,
       age: values?.age,
-      bloodType: values?.bloodType ,
+      bloodType: values?.bloodType,
       lastDonationDate: values?.lastDonationDate,
+      availability: values?.availability,
       bio: values?.bio,
       location: values?.location,
       phoneNumber: values?.phoneNumber || "",
@@ -59,6 +61,10 @@ const UpdateProfileModal = ({ open, setOpen, data }: TUpdateProfileModalProps) =
     const { userProfile, ...userData } = data;
 
     Object.entries(userData).forEach(([key, value]) => {
+      if (key === "availability") {
+        defaultValues[key] = value ? "true" : "false";
+        return;
+      }
       defaultValues[key] = value;
     });
     Object.entries(userProfile).forEach(([key, value]) => {
@@ -109,6 +115,9 @@ const UpdateProfileModal = ({ open, setOpen, data }: TUpdateProfileModalProps) =
               label='Last Donation Date'
               disableFuture
             />
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <CSelect fullWidth label='Availability' name='availability' items={["Yes", "No"]} />
           </Grid>
           <Grid item xs={12}>
             <CInput fullWidth name='bio' label='bio' id='bio' autoComplete='bio' />

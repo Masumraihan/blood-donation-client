@@ -1,5 +1,5 @@
 import { authKey } from "@/constants";
-import { TMyProfile } from "@/types";
+import { TUser } from "@/types";
 import { Button, Grid, Typography } from "@mui/material";
 import { cookies } from "next/headers";
 import ChangeProfilePhoto from "./components/ChangeProfilePhoto";
@@ -11,7 +11,7 @@ import UpdateProfileButton from "./components/UpdateProfileButton";
 const ProfilePage = async () => {
   const cookieStore = cookies();
   const token = cookieStore.get(authKey.token);
-  let data: TMyProfile | undefined;
+  let data: TUser | undefined;
   if (!token) {
     return redirect("/login");
   }
@@ -119,6 +119,16 @@ const ProfilePage = async () => {
                 <Typography variant='body1'>Last Blood Donation</Typography>
                 <Typography variant='body1'>
                   {data?.userProfile?.lastDonationDate || "N/A"}
+                </Typography>
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}
+              >
+                <Typography variant='body1'>Availability</Typography>
+                <Typography variant='body1'>
+                  {data?.availability ? "Yes" : "No"}
                 </Typography>
               </Grid>
             </Grid>

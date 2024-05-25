@@ -2,9 +2,9 @@
 import { Button } from "@mui/material";
 import UpdateProfileModal from "./UpdateProfileModal";
 import { useState } from "react";
-import { TMyProfile } from "@/types";
+import { TUser } from "@/types";
 
-const UpdateProfileButton = ({ data }: { data: TMyProfile | undefined }) => {
+const UpdateProfileButton = ({ data }: { data: TUser | undefined }) => {
   const [open, setOpen] = useState(false);
   return (
     <>

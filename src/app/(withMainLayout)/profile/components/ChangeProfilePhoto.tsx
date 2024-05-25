@@ -57,7 +57,7 @@ const ChangeProfilePhoto = ({ photo }: { photo: string | null | undefined }) => 
             src={photo}
             width={150}
             height={150}
-            style={{ borderRadius: "50%" }}
+            style={{ borderRadius: "50%", objectFit: "cover" }}
           />
         ) : (
           <Image

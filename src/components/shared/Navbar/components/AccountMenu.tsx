@@ -2,7 +2,7 @@
 import placeholder from "@/assets/user_placeholder.png";
 import { authKey } from "@/constants";
 import logout from "@/services/actions/logout";
-import { TMyProfile } from "@/types";
+import { TUser } from "@/types";
 import Logout from "@mui/icons-material/Logout";
 import Settings from "@mui/icons-material/Settings";
 import Avatar from "@mui/material/Avatar";
@@ -17,7 +17,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-const AccountMenu = ({ data }: { data: TMyProfile | undefined }) => {
+const AccountMenu = ({ data }: { data: TUser | undefined }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const router = useRouter();
@@ -56,7 +56,7 @@ const AccountMenu = ({ data }: { data: TMyProfile | undefined }) => {
                 src={data?.userProfile?.photo}
                 width={32}
                 height={32}
-                style={{ borderRadius: "50%" }}
+                style={{ borderRadius: "50%", objectFit: "cover" }}
               />
             ) : (
               <Avatar sx={{ width: 32, height: 32, textTransform: "uppercase" }}>
@@ -107,7 +107,7 @@ const AccountMenu = ({ data }: { data: TMyProfile | undefined }) => {
             width={32}
             height={32}
             alt='user photo'
-            style={{ borderRadius: "50%" }}
+            style={{ borderRadius: "50%", objectFit: "cover" }}
           />
           My account
         </MenuItem>
