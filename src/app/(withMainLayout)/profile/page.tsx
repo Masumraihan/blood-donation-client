@@ -6,6 +6,7 @@ import ChangeProfilePhoto from "./components/ChangeProfilePhoto";
 import { redirect } from "next/navigation";
 import MyBloodRequest from "./components/MyBloodRequest";
 import MyBloodDonation from "./components/MyBloodDonation";
+import UpdateProfileButton from "./components/UpdateProfileButton";
 
 const ProfilePage = async () => {
   const cookieStore = cookies();
@@ -17,6 +18,9 @@ const ProfilePage = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/my-profile`, {
     headers: {
       authorization: token.value,
+    },
+    next: {
+      tags: ["profile"],
     },
   });
   const result = await res.json();
@@ -45,9 +49,7 @@ const ProfilePage = async () => {
 
             <Typography variant='h6' sx={{ textAlign: "center", marginTop: "1rem" }}>
               {data?.name} Profile
-              <Button variant='text' sx={{ marginLeft: "1rem" }}>
-                Edit
-              </Button>
+              <UpdateProfileButton data={data} />
             </Typography>
             <Typography variant='body1' sx={{ textAlign: "center", my: "1rem" }}>
               {data?.userProfile.bio}

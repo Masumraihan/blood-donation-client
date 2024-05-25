@@ -16,6 +16,9 @@ const Navbar = async ({ children }: { children: React.ReactNode }) => {
       headers: {
         authorization: token.value,
       },
+      next: {
+        tags: ["profile"],
+      },
     });
     const result = await res.json();
     data = result?.data;

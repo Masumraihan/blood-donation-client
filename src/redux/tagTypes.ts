@@ -1,3 +1,5 @@
-export const tagTypes = {};
+export const tagTypes = {
+  USER: "USER",
+};
 
-export const tagTypesList = [];
+export const tagTypesList = [tagTypes.USER];

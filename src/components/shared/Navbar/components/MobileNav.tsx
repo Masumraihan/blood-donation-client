@@ -1,6 +1,6 @@
 "use client";
 import logo from "@/assets/logo.png";
-import { toggleMenu } from "@/redux/featues/mobileMenuSlice";
+import { toggleMenu } from "@/redux/featues/mobileMenu/mobileMenuSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";

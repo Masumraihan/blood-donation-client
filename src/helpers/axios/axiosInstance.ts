@@ -1,9 +1,11 @@
 import { authKey } from "@/constants";
+import logout from "@/services/actions/logout";
 import setAccessToken from "@/services/actions/setAccessToken";
 //import { getNewAccessToken } from "@/services/auth.services";
 import { TErrorResponse, TResponseSuccess } from "@/types";
 
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const axiosInstance = axios.create();
 axiosInstance.defaults.headers["Content-Type"] = "application/json";
@@ -13,8 +15,6 @@ axiosInstance.defaults.timeout = 60000;
 // Add a request interceptor
 axiosInstance.interceptors.request.use(
   function (config) {
-    // Do something before request is sent
-
     const accessToken = localStorage.getItem(authKey.token);
     if (accessToken) {
       config.headers.Authorization = accessToken;
@@ -55,6 +55,8 @@ axiosInstance.interceptors.response.use(
         //config.headers.Authorization = accessToken;
         //setToLocalStorage(authKey.accessToken, accessToken);
         //setAccessToken(accessToken);
+        toast.error(" Token expired temporary your are logged out, will fixed it later");
+        logout();
         return axiosInstance(config);
       } else {
         //removeFromLocalStorage(authKey.accessToken);

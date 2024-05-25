@@ -1,5 +1,5 @@
 "use client";
-import { toggleMenu } from "@/redux/featues/mobileMenuSlice";
+import { toggleMenu } from "@/redux/featues/mobileMenu/mobileMenuSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import MenuIcon from "@mui/icons-material/Menu";
 import IconButton from "@mui/material/IconButton";

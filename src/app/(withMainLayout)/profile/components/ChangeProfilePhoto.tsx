@@ -1,19 +1,39 @@
 "use client";
 import placeholder from "@/assets/user_placeholder.png";
+import { useUpdateProfileMutation } from "@/redux/featues/user/userApi";
 import { TImageBBResponse } from "@/types";
 import uploadIntoImageBB from "@/utils/uploadImageIntoImageBB";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import { Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { ChangeEvent } from "react";
+import toast from "react-hot-toast";
 const ChangeProfilePhoto = ({ photo }: { photo: string | null | undefined }) => {
+  const [updateProfile] = useUpdateProfileMutation();
+  const router = useRouter();
+
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
     const file = target.files?.[0];
     const formData = new FormData();
     formData.append("image", file as Blob);
     const res: TImageBBResponse = await uploadIntoImageBB(formData);
+    if (res.data.url) {
+      try {
+        const profileImageResponse = await updateProfile({
+          photo: res.data.url,
+        }).unwrap();
+        if (profileImageResponse?.id) {
+          toast.success("Profile image changed successfully");
+          router.refresh();
+        }
+      } catch (error) {
+        console.log(error);
+        toast.error("Profile image changed failed");
+      }
+    }
   };
 
   const VisuallyHiddenInput = styled("input")({
