@@ -1,11 +1,21 @@
-import placeholder from "@/assets/user_placeholder.png";
+import generateDonorListApiURL from "@/helpers/generateDynamicApiUrl/generateDonorListApiUrl";
 import { TUser } from "@/types";
+import { Container, Grid, Typography } from "@mui/material";
+import DonorCard from "../shared/DonorCard/DonorCard";
+import FilterBloodDonors from "./FilterBloodDonors";
 
-import { Button, Card, CardContent, Container, Grid, Typography } from "@mui/material";
-import Image from "next/image";
+const BloodDonors = async ({
+  searchParams,
+}: {
+  searchParams?: { search?: string; bloodType?: string; availability?: string };
+}) => {
+  const URL = generateDonorListApiURL({
+    search: searchParams?.search,
+    bloodType: searchParams?.bloodType,
+    availability: searchParams?.availability,
+  });
 
-const BloodDonors = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/donor-list?limit=10`, {
+  const res = await fetch(`${URL}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -20,6 +30,8 @@ const BloodDonors = async () => {
       <Typography variant='h3' sx={{ textAlign: "center", mt: "1rem" }}>
         Blood Donors
       </Typography>
+      <FilterBloodDonors />
+
       <Grid container spacing={3} sx={{ mt: ".5rem" }}>
         {!data.length ? (
           <Typography variant='h5' sx={{ textAlign: "center", mt: "1rem" }}>
@@ -28,37 +40,7 @@ const BloodDonors = async () => {
         ) : (
           data.slice(0, 10).map((donor) => (
             <Grid item xs={12} md={4} lg={3} key={donor.id}>
-              <Card sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                {donor?.userProfile?.photo ? (
-                  <Image
-                    src={donor.userProfile.photo}
-                    alt={donor.name}
-                    quality={100}
-                    width={100}
-                    height={100}
-                    style={{ objectFit: "cover", borderRadius: "50%" }}
-                  />
-                ) : (
-                  <Image
-                    src={placeholder}
-                    alt={donor.name}
-                    quality={100}
-                    width={100}
-                    height={100}
-                  />
-                )}
-                <CardContent>
-                  <Typography variant='h6'>{donor.name}</Typography>
-                  <Typography variant='body2'>Blood Type: {donor.bloodType}</Typography>
-                  <Typography variant='body2'>Location: {donor.location}</Typography>
-                  <Typography variant='body2' color={donor.availability ? "green" : "red"}>
-                    {donor.availability ? "Available" : "Not Available"}
-                  </Typography>
-                  <Button variant='contained' href={`/donor/${donor.id}`}>
-                    View Details
-                  </Button>
-                </CardContent>
-              </Card>
+              <DonorCard donor={donor} />
             </Grid>
           ))
         )}
