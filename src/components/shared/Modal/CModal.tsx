@@ -54,7 +54,9 @@ const CModal = ({ children, title, open, setOpen, sx }: TCModalProps) => {
         >
           <CloseIcon />
         </IconButton>
-        <DialogContent dividers>{children}</DialogContent>
+        <DialogContent dividers sx={{ width: "100%" }}>
+          {children}
+        </DialogContent>
       </BootstrapDialog>
     </React.Fragment>
   );
