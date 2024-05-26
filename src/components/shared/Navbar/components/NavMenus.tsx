@@ -60,10 +60,9 @@ const NavMenus = ({ data }: Props) => {
               alignItems: "center",
             }}
           >
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              {" "}
+            <Box sx={{ display: "flex", alignItems: "center" }} component={Link} href='/'>
               <Image src={logo} width={50} height={50} alt='logo' />
-              <Typography variant='h6' component='h1' sx={{ color: "#000" }}>
+              <Typography variant='h6' component='h1' sx={{ color: "#000" }} noWrap>
                 LifeLink
               </Typography>
             </Box>

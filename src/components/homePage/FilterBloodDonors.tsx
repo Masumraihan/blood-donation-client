@@ -11,7 +11,7 @@ const FilterBloodDonors = () => {
 
   const initialSearchParams = {
     bloodType: searchParams.get("bloodType") || "",
-    search: searchParams.get("search") || "",
+    searchTerm: searchParams.get("searchTerm") || "",
     availability: searchParams.get("availability") || "",
   };
   const [filters, setFilters] = useState(initialSearchParams);
@@ -42,16 +42,16 @@ const FilterBloodDonors = () => {
           fullWidth
           label='Search'
           type='search'
-          name='search'
+          name='searchTerm'
           placeholder='Search Blood Donors'
-          value={filters.search}
+          value={filters.searchTerm}
           onChange={handleSearchChange}
           size='small'
         />
       </Grid>
       <Grid item xs={6}>
-        <Grid container gap={2} justifyContent='end'>
-          <Grid item xs={4}>
+        <Grid container spacing={2} justifyContent='end'>
+          <Grid item xs={6} md={4}>
             <FormControl size='small' fullWidth>
               <InputLabel>Blood Type</InputLabel>
               <Select
@@ -71,7 +71,7 @@ const FilterBloodDonors = () => {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={6} md={4}>
             <FormControl size='small' fullWidth>
               <InputLabel>Availability</InputLabel>
               <Select

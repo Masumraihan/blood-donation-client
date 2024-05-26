@@ -1,16 +1,18 @@
-import generateDonorListApiURL from "@/helpers/generateDynamicApiUrl/generateDonorListApiUrl";
+
 import { TUser } from "@/types";
-import { Container, Grid, Typography } from "@mui/material";
+import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import DonorCard from "../shared/DonorCard/DonorCard";
 import FilterBloodDonors from "./FilterBloodDonors";
+import Link from "next/link";
+import generateDonorListApiURL from "@/helpers/axios/generateApiUrl";
 
 const BloodDonors = async ({
   searchParams,
 }: {
-  searchParams?: { search?: string; bloodType?: string; availability?: string };
+  searchParams?: { searchTerm?: string; bloodType?: string; availability?: string };
 }) => {
-  const URL = generateDonorListApiURL({
-    search: searchParams?.search,
+  const URL = generateDonorListApiURL(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/donor-list?limit=10`, {
+    searchTerm: searchParams?.searchTerm,
     bloodType: searchParams?.bloodType,
     availability: searchParams?.availability,
   });
@@ -26,7 +28,7 @@ const BloodDonors = async ({
   const data: TUser[] = result?.data || [];
 
   return (
-    <Container>
+    <>
       <Typography variant='h3' sx={{ textAlign: "center", mt: "1rem" }}>
         Blood Donors
       </Typography>
@@ -45,7 +47,12 @@ const BloodDonors = async ({
           ))
         )}
       </Grid>
-    </Container>
+      <Box sx={{ textAlign: "center", mt: "2rem" }}>
+        <Button LinkComponent={Link} href='/donors'>
+          View Donor List
+        </Button>
+      </Box>
+    </>
   );
 };
 

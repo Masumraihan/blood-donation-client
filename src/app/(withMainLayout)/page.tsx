@@ -5,7 +5,7 @@ import HeroSection from "@/components/homePage/HeroSection";
 export default function Home({
   searchParams,
 }: {
-  searchParams?: { search?: string; bloodType?: string; availability?: string };
+  searchParams?: { searchTerm?: string; bloodType?: string; availability?: string };
 }) {
   return (
     <main>

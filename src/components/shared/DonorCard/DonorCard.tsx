@@ -1,11 +1,12 @@
 import placeholder from "@/assets/user_placeholder.png";
 import { TUser } from "@/types";
-import { Button, Card, CardContent, Container, Grid, Typography } from "@mui/material";
+import { Button, Card, CardContent, Typography } from "@mui/material";
 import Image from "next/image";
+import Link from "next/link";
 
 const DonorCard = ({ donor }: { donor: TUser }) => {
   return (
-    <Card sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+    <Card sx={{ display: "flex", justifyContent: "center", alignItems: "center", padding: "1rem" }}>
       {donor?.userProfile?.photo ? (
         <Image
           src={donor.userProfile.photo}
@@ -25,7 +26,12 @@ const DonorCard = ({ donor }: { donor: TUser }) => {
         <Typography variant='body2' color={donor.availability ? "green" : "red"}>
           {donor.availability ? "Available" : "Not Available"}
         </Typography>
-        <Button variant='contained' href={`/donor/${donor.id}`}>
+        <Button
+          variant='outlined'
+          href={`/donors/${donor.id}`}
+          component={Link}
+          sx={{ width: "fit-content" }}
+        >
           View Details
         </Button>
       </CardContent>
