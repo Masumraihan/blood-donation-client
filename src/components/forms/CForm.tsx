@@ -23,7 +23,9 @@ const CForm = ({ children, onSubmit, resolver, defaultValues }: TCFromProps) => 
   };
   return (
     <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(submit)}>{children}</form>
+      <form style={{ width: "100%" }} onSubmit={handleSubmit(submit)}>
+        {children}
+      </form>
     </FormProvider>
   );
 };

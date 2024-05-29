@@ -1,3 +1,13 @@
+export type TProfile = {
+  id: string;
+  userId: string;
+  photo: string | null;
+  bio: string;
+  age: number;
+  lastDonationDate: string;
+  createdAt: string;
+  updateAt: string;
+};
 export type TUser = {
   id: string;
   name: string;
@@ -12,16 +22,7 @@ export type TUser = {
   availability: boolean;
   createdAt: string;
   updateAt: string;
-  userProfile: {
-    id: string;
-    userId: string;
-    photo: string | null;
-    bio: string;
-    age: number;
-    lastDonationDate: string;
-    createdAt: string;
-    updateAt: string;
-  };
+  userProfile: TProfile;
 };
 
 export type TMyBloodInfo = {
@@ -112,4 +113,20 @@ export type TErrorResponse = {
   statusCode: number;
   message: string;
   errorDetails: { issues: TIssue[] } | null;
+};
+
+export type TSingleUser = {
+  id: string;
+  name: string;
+  bloodType: string;
+  location: string;
+  availability: string;
+  role: string;
+  createdAt: string;
+  updateAt: string;
+  userProfile: TProfile;
+  contactInfo?: {
+    email: string;
+    phoneNumber?: string;
+  };
 };

@@ -68,14 +68,6 @@ const ProfilePage = async () => {
                 xs={12}
                 sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}
               >
-                <Typography variant='body1'>Your First Name</Typography>
-                <Typography variant='body2'>Your Last Name</Typography>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}
-              >
                 <Typography variant='body1'>Email Address</Typography>
                 <Typography variant='body1'>{data?.email}</Typography>
               </Grid>

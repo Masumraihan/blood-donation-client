@@ -10,6 +10,11 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const cookie = cookies();
   const token = cookie.get(authKey.token);
+
+  if (pathname === "/donors") {
+    return NextResponse.next();
+  }
+
   if (!token?.value) {
     if (authRoutes.includes(pathname)) {
       return NextResponse.next();
@@ -18,13 +23,25 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  let decode = jwtDecode(token.value) as any;
+  let decode: any;
+  try {
+    decode = jwtDecode(token.value);
+  } catch (e) {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
 
   if (!decode) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  const role = decode.role;
+  const role = decode?.role;
+
+  const now = Math.floor(Date.now() / 1000);
+
+  console.log(decode.exp, now);
+  //if (decode.exp < now) {
+  //  return NextResponse.redirect(new URL("/login", request.url));
+  //}
 
   if (pathname === "/dashboard") {
     if (role === userRole.ADMIN) {
@@ -36,5 +53,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard", "/login", "/register"],
+  matcher: ["/dashboard", "/donors/:donorId*", "/login", "/register"],
 };
