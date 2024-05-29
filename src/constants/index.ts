@@ -23,3 +23,15 @@ export const userRole = {
   DONOR: "DONOR",
   ADMIN: "ADMIN",
 };
+
+
+export const navItems = [
+  {
+    name: "Home",
+    link: "/",
+  },
+  {
+    name: "About Us",
+    link: "/about-us",
+  },
+];

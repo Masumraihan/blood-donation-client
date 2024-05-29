@@ -10,17 +10,8 @@ import Link from "next/link";
 import AccountMenu from "./AccountMenu";
 import MobileMenuTrigger from "./MobileMenuTrigger";
 import MobileNav from "./MobileNav";
+import { navItems } from "@/constants";
 
-const navItems = [
-  {
-    name: "Home",
-    link: "/",
-  },
-  {
-    name: "About Us",
-    link: "/about-us",
-  },
-];
 
 interface Props {
   data: TUser | undefined;

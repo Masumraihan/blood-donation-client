@@ -23,7 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <HotToast />
           <AppRouterCacheProvider>{children} </AppRouterCacheProvider>
         </Providers>
-      </body>
+      </body> 
     </html>
   );
 }

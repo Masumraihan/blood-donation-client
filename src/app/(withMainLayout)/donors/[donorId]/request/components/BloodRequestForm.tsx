@@ -7,6 +7,7 @@ import { TUser } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button } from "@mui/material";
 import { FieldValues, SubmitHandler } from "react-hook-form";
+import toast from "react-hot-toast";
 import { z } from "zod";
 
 const bloodRequestSchema = z.object({
@@ -29,9 +30,15 @@ const BloodRequestForm = ({ user }: { user: TUser | undefined }) => {
       donorId: user?.id,
     };
 
-    const res = await createBloodRequest(data);
-
-    console.log(res);
+    try {
+      const res = await createBloodRequest(data);
+      console.log(res);
+      if (res?.data?.success) {
+        toast.success("Request sent successfully", {
+          position: "bottom-right",
+        });
+      }
+    } catch (error) {}
   };
 
   const defaultValues = {

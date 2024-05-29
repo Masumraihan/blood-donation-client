@@ -1,8 +1,10 @@
 import { authKey, requestStatus } from "@/constants";
 import { TMyBloodInfo } from "@/types";
-import { Badge, Card, CardContent, Grid, Typography } from "@mui/material";
+import { Badge, Box, Card, CardContent, Grid, IconButton, Typography } from "@mui/material";
+import dayjs from "dayjs";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import BloodDonationCardMenu from "./BloodDonationCardMenu";
 
 const MyBloodDonation = async () => {
   const cookieStore = cookies();
@@ -11,7 +13,7 @@ const MyBloodDonation = async () => {
     return redirect("/login");
   }
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/my-donation`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/donation-request`, {
     headers: {
       authorization: token.value,
     },
@@ -20,7 +22,7 @@ const MyBloodDonation = async () => {
   const data = result?.data as TMyBloodInfo[];
 
   return (
-    <div>
+    <>
       <Typography
         variant='h5'
         sx={{
@@ -42,9 +44,9 @@ const MyBloodDonation = async () => {
                 key={donation.id}
                 item
                 xs={12}
-                md={4}
+                sm={6}
+                lg={4}
                 sx={{
-                  backgroundColor: "#f5f5f5",
                   padding: "1rem",
                   height: "100%",
                   borderRadius: "1rem",
@@ -54,13 +56,17 @@ const MyBloodDonation = async () => {
                   alignItems: "center",
                 }}
               >
-                <Card>
+                <Card sx={{ position: "relative" }}>
+                  <Box sx={{ position: "absolute", top: "0", right: "0" }}>
+                    <BloodDonationCardMenu id={donation.id} />
+                  </Box>
                   <CardContent>
                     <Typography variant='h5' component='h2'>
                       Donation Information
                     </Typography>
-                    <Typography color='textSecondary' gutterBottom>
-                      {donation.dateOfDonation} - {donation.hospitalName}
+                    <Typography variant='body2' component='p'>
+                      {dayjs(donation.dateOfDonation).format("DD MMM YYYY")}:
+                      {dayjs(donation.dateOfDonation).format("HH:mm A")} - {donation.hospitalName}
                     </Typography>
                     <Typography variant='body2' component='p'>
                       Reason: {donation.reason}
@@ -96,7 +102,7 @@ const MyBloodDonation = async () => {
                               ? "green"
                               : donation.requestStatus === requestStatus.REJECTED
                               ? "red"
-                              : "red",
+                              : "orange",
                         }}
                       >
                         {donation.requestStatus}
@@ -109,7 +115,7 @@ const MyBloodDonation = async () => {
           </Grid>
         </>
       )}
-    </div>
+    </>
   );
 };
 

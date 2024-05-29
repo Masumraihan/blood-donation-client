@@ -38,6 +38,7 @@ const CModal = ({ children, title, open, setOpen, sx }: TCModalProps) => {
         aria-labelledby='customized-dialog-title'
         open={open}
         sx={sx}
+        fullWidth
       >
         <DialogTitle sx={{ m: 0, p: 2 }} id='customized-dialog-title'>
           {title}

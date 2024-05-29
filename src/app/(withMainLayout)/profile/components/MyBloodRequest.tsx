@@ -1,6 +1,7 @@
 import { authKey, requestStatus } from "@/constants";
 import { TMyBloodInfo } from "@/types";
 import { Badge, Card, CardContent, Grid, Typography } from "@mui/material";
+import dayjs from "dayjs";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -42,9 +43,9 @@ const MyBloodRequest = async () => {
                 key={request.id}
                 item
                 xs={12}
-                md={4}
+                sm={6}
+                lg={4}
                 sx={{
-                  backgroundColor: "#f5f5f5",
                   padding: "1rem",
                   height: "100%",
                   borderRadius: "1rem",
@@ -59,8 +60,9 @@ const MyBloodRequest = async () => {
                     <Typography variant='h5' component='h2'>
                       Donation Information
                     </Typography>
-                    <Typography color='textSecondary' gutterBottom>
-                      {request.dateOfDonation} - {request.hospitalName}
+                    <Typography variant='body2' component='p'>
+                      {dayjs(request.dateOfDonation).format("DD MMM YYYY")}:
+                      {dayjs(request.dateOfDonation).format("HH:mm A")} - {request.hospitalName}
                     </Typography>
                     <Typography variant='body2' component='p'>
                       Reason: {request.reason}
@@ -96,7 +98,7 @@ const MyBloodRequest = async () => {
                               ? "green"
                               : request.requestStatus === requestStatus.REJECTED
                               ? "red"
-                              : "red",
+                              : "orange",
                         }}
                       >
                         {request.requestStatus}

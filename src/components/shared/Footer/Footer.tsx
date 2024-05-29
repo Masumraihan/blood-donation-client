@@ -2,6 +2,7 @@ import logo from "@/assets/logo.png";
 import { Box, Container, Divider, Grid, Link, Typography } from "@mui/material";
 import { Facebook, Twitter, Instagram, LinkedIn } from "@mui/icons-material";
 import Image from "next/image";
+import { navItems } from "@/constants";
 
 const Footer = () => {
   return (
@@ -27,10 +28,10 @@ const Footer = () => {
           </Grid>
           <Grid item>
             <Grid container spacing={2}>
-              {["First Link", "Second Link", "Third Link", "Fourth Link"].map((text, index) => (
+              {navItems.map((item, index) => (
                 <Grid item key={index}>
-                  <Link href='#' variant='body2' color='textSecondary' underline='hover'>
-                    {text}
+                  <Link href={item.link} variant='body2' color='textSecondary' underline='hover'>
+                    {item.name}
                   </Link>
                 </Grid>
               ))}
@@ -54,7 +55,7 @@ const Footer = () => {
           </Grid>
         </Grid>
         <Typography variant='body2' color='textSecondary' align='center' sx={{ mt: 2 }}>
-          © 2020 Nereus. All rights reserved.
+          © 2020 LifeLink. All rights reserved.
         </Typography>
       </Container>
     </Box>
