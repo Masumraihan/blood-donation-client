@@ -1,5 +1,6 @@
 import logo from "@/assets/logo.png";
 import { TUser } from "@/types";
+import generateNavItems from "@/utils/generateNavItems";
 import { Typography } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -10,14 +11,14 @@ import Link from "next/link";
 import AccountMenu from "./AccountMenu";
 import MobileMenuTrigger from "./MobileMenuTrigger";
 import MobileNav from "./MobileNav";
-import { navItems } from "@/constants";
-
 
 interface Props {
   data: TUser | undefined;
 }
 
 const NavMenus = ({ data }: Props) => {
+  const navItems = generateNavItems(data ? data?.role : "");
+
   return (
     <>
       <AppBar component='nav' sx={{ backgroundColor: "secondary.main" }}>

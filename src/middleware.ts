@@ -36,6 +36,10 @@ export function middleware(request: NextRequest) {
 
   const role = decode?.role;
 
+  if (!role) {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
+
   if (pathname === "/dashboard") {
     if (role === userRole.ADMIN) {
       return NextResponse.next();
@@ -46,5 +50,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard", "/donors/:donorId*", "/login", "/register", "/profile"],
+  matcher: ["/dashboard/:path*", "/donors/:donorId*", "/login", "/register", "/profile"],
 };

@@ -1,6 +1,7 @@
 import AboutUsSection from "@/components/homePage/AboutUsSection";
 import BloodDonors from "@/components/homePage/BloodDonors";
 import HeroSection from "@/components/homePage/HeroSection";
+import HowItWorksSection from "@/components/homePage/HowItWorksSection";
 import Testimonials from "@/components/homePage/Testimonials";
 import dynamic from "next/dynamic";
 
@@ -15,6 +16,7 @@ export default function Home({
       <HeroSection />
       <AboutUsSection />
       <BloodDonors searchParams={searchParams} />
+      <HowItWorksSection />
       <Map />
       <Testimonials />
     </main>

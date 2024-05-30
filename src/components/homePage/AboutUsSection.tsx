@@ -6,17 +6,31 @@ const AboutUsSection = () => {
     <>
       <Box
         sx={{
-          minHeight: "60vh",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
+          mb: 5,
         }}
         maxWidth={"lg"}
       >
         <Grid container justifyContent='space-between' alignItems='center'>
           <Grid item xs={12} sm={7}>
-            <Image src={about_us} width={700} alt='hero' className='' />
+            <Box
+              sx={{
+                width: "100%",
+                height: { xs: "200px", sm: "400px", md: "500px" },
+                position: "relative",
+              }}
+            >
+              <Image
+                src={about_us}
+                layout='fill'
+                objectFit='cover'
+                alt='hero'
+                className='banner-image'
+              />
+            </Box>
           </Grid>
           <Grid item xs={12} sm={5}>
             <Typography variant='h3' component='h1' gutterBottom>

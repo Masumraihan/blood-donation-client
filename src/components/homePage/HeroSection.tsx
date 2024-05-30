@@ -7,7 +7,7 @@ const HeroSection = () => {
     <>
       <Box
         sx={{
-          minHeight: "60vh",
+          minHeight: { sx: "40vh", md: "60vh" },
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -48,7 +48,9 @@ const HeroSection = () => {
             </Box>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Image src={bloodDonate} width={700} alt='hero' className='banner-image' />
+            <Box sx={{ display: { sm: "block", xs: "none" } }}>
+              <Image src={bloodDonate} width={700} alt='hero' className='banner-image' />
+            </Box>
           </Grid>
         </Grid>
       </Box>

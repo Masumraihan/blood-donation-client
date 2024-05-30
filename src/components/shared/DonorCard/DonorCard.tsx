@@ -30,7 +30,8 @@ const DonorCard = ({ donor }: { donor: TUser }) => {
           variant='outlined'
           href={`/donors/${donor.id}`}
           component={Link}
-          sx={{ width: "fit-content" }}
+          sx={{ px: ".4rem", py: ".2rem" }}
+          size='small'
         >
           View Details
         </Button>

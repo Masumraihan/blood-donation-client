@@ -1,10 +1,9 @@
 import Providers from "@/lib/Providers/Providers";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
 import { Inter } from "next/font/google";
-import "./globals.css";
 import { Toaster } from "react-hot-toast";
+import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -13,9 +12,6 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  //const HotToast = dynamic(() => import("react-hot-toast"), {
-  //  ssr: false,
-  //}) as React.ComponentType<any>;
 
   return (
     <html lang='en'>

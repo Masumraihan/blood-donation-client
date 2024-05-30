@@ -1,3 +1,5 @@
+
+
 export const BloodTypes: string[] = [
   "A_POSITIVE",
   "A_NEGATIVE",
@@ -101,3 +103,4 @@ export const allCities = [
   { name: "Sunamganj", latitude: 25.0657, longitude: 91.395 },
   { name: "Sylhet", latitude: 24.8949, longitude: 91.8687 },
 ];
+
