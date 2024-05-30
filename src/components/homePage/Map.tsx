@@ -16,7 +16,7 @@ L.Icon.Default.mergeOptions({
 const Map = () => {
   return (
     <Box sx={{ height: "600px", width: "100%", mt: 5 }}>
-      <Typography variant='h3' component='h1' gutterBottom>
+      <Typography variant='h3' component='h1' gutterBottom sx={{ textAlign: "center" }}>
         Our Support Locations
       </Typography>
       <MapContainer center={[23.8103, 90.4125]} zoom={7} style={{ height: "100%", width: "100%" }}>

@@ -1,14 +1,18 @@
 "use client";
+import React from "react";
 import {
-  Avatar,
   Box,
+  Typography,
   Card,
   CardContent,
-  Typography
+  Avatar,
+  useMediaQuery,
+  useTheme,
+  Grid,
 } from "@mui/material";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const testimonialsData = [
   {
@@ -46,19 +50,28 @@ const testimonialsData = [
 ];
 
 const Testimonials = () => {
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 1,
+    slidesToShow: isSmallScreen ? 1 : 3,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
   };
 
   return (
-    <Box sx={{ width: "100%", padding: { xs: "10px", md: "20px" }, backgroundColor: "#f5f5f5" }}>
+    <Box
+      sx={{
+        width: "100%",
+        padding: { xs: "10px", md: "20px" },
+        backgroundColor: "#f5f5f5",
+        mt: 10,
+      }}
+    >
       <Typography variant='h4' align='center' gutterBottom>
         Testimonials
       </Typography>
