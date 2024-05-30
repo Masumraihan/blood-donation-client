@@ -2,10 +2,12 @@
 import CDatePicker from "@/components/forms/CDatePicker";
 import CForm from "@/components/forms/CForm";
 import CInput from "@/components/forms/CInput";
-import createBloodRequest from "@/services/actions/createBloodRequest";
+import revalidateData from "@/services/actions/revalidateData";
+
 import { TUser } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button } from "@mui/material";
+import { useRouter } from "next/navigation";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
@@ -23,22 +25,31 @@ const bloodRequestSchema = z.object({
     .min(1, { message: "Reason is required" })
     .max(500, { message: "Reason can't be longer than 500 characters" }),
 });
-const BloodRequestForm = ({ user }: { user: TUser | undefined }) => {
+
+type TBloodRequestFormProps = {
+  user: TUser | undefined;
+  donorId: string;
+  createBloodRequest: (data: any) => Promise<any>;
+};
+
+const BloodRequestForm = ({ user, donorId, createBloodRequest }: TBloodRequestFormProps) => {
+  const router = useRouter();
   const onSubmit: SubmitHandler<FieldValues> = async (values) => {
     const data = {
       ...values,
-      donorId: user?.id,
+      donorId,
     };
 
     try {
       const res = await createBloodRequest(data);
-      console.log(res);
-      if (res?.data?.success) {
-        toast.success("Request sent successfully", {
-          position: "bottom-right",
-        });
+      if (res?.success) {
+        revalidateData("profile");
+        router.push("/profile");
+        toast.success("Request sent successfully");
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const defaultValues = {

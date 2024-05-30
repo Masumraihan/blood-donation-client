@@ -62,7 +62,7 @@ const MyBloodRequest = async () => {
                     </Typography>
                     <Typography variant='body2' component='p'>
                       {dayjs(request.dateOfDonation).format("DD MMM YYYY")}:
-                      {dayjs(request.dateOfDonation).format("HH:mm A")} - {request.hospitalName}
+                      {dayjs(request.dateOfDonation).format("hh:mm a")} - {request.hospitalName}
                     </Typography>
                     <Typography variant='body2' component='p'>
                       Reason: {request.reason}

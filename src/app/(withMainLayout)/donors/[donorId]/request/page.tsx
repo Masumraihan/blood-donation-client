@@ -4,8 +4,9 @@ import { Box, Typography } from "@mui/material";
 import dynamic from "next/dynamic";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import createBloodRequest from "@/services/actions/createBloodRequest";
 
-const BloodRequestPage = async () => {
+const BloodRequestPage = async ({ params }: { params: { donorId: string } }) => {
   const FORM = dynamic(() => import("./components/BloodRequestForm"), {
     ssr: false,
   });
@@ -27,6 +28,8 @@ const BloodRequestPage = async () => {
   const result = await res.json();
   data = result?.data;
 
+  const donorId = params.donorId;
+
   return (
     <Box sx={{ marginTop: 4, width: "100%" }}>
       <Typography variant='h4' align='center' gutterBottom>
@@ -39,7 +42,7 @@ const BloodRequestPage = async () => {
           justifyContent: "center",
         }}
       >
-        <FORM user={data} />
+        <FORM user={data} donorId={donorId} createBloodRequest={createBloodRequest} />
       </Box>
     </Box>
   );

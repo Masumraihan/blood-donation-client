@@ -40,7 +40,6 @@ const ChangePasswordModal = ({ open, setOpen }: TChangePasswordModalProps) => {
     };
     try {
       const res = await changePassword(data);
-      console.log(res.data);
       if (res?.data?.id) {
         toast.success("Password changed successfully");
         setOpen(false);

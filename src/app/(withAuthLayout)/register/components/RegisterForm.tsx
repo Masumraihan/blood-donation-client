@@ -3,7 +3,7 @@ import CDatePicker from "@/components/forms/CDatePicker";
 import CForm from "@/components/forms/CForm";
 import CInput from "@/components/forms/CInput";
 import CSelect from "@/components/forms/CSelect";
-import { BloodTypes, authKey } from "@/constants";
+import { BloodTypes, allCities, authKey } from "@/constants";
 import login from "@/services/actions/login";
 import register from "@/services/actions/register";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -49,6 +49,8 @@ const registerFormSchema = z.object({
     .string({ required_error: "Please type your password again" })
     .min(6, "Your password should be minimum 6 characters"),
 });
+
+const citiesItems = allCities.map(({ name }) => name);
 
 const RegisterForm = () => {
   const [error, setError] = useState("");
@@ -117,7 +119,7 @@ const RegisterForm = () => {
         </Grid>
 
         <Grid item xs={12} md={6}>
-          <CInput fullWidth label='Location' name='location' autoComplete='location' autoFocus />
+          <CSelect fullWidth label='Location' name='location' items={citiesItems} />
         </Grid>
         <Grid item xs={12} md={6}>
           <CDatePicker name='lastDonationDate' fullWidth label='Last Donation Date' disableFuture />

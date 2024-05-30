@@ -20,7 +20,6 @@ const MyBloodDonation = async () => {
   });
   const result = await res.json();
   const data = result?.data as TMyBloodInfo[];
-
   return (
     <>
       <Typography
@@ -66,24 +65,24 @@ const MyBloodDonation = async () => {
                     </Typography>
                     <Typography variant='body2' component='p'>
                       {dayjs(donation.dateOfDonation).format("DD MMM YYYY")}:
-                      {dayjs(donation.dateOfDonation).format("HH:mm A")} - {donation.hospitalName}
+                      {dayjs(donation.dateOfDonation).format("HH:mm a")} - {donation.hospitalName}
                     </Typography>
                     <Typography variant='body2' component='p'>
                       Reason: {donation.reason}
                     </Typography>
+                    <Typography variant='body2' component='p'>
+                      Requester: {donation?.requester?.name}
+                    </Typography>
+                    <Typography variant='body2' component='p'>
+                      Blood Type: {donation.requester?.bloodType}
+                    </Typography>
                     {donation.requestStatus === requestStatus.APPROVED && (
                       <>
                         <Typography variant='body2' component='p'>
-                          Donor: {donation?.donor?.name}
+                          Email: {donation.requester?.email}
                         </Typography>
                         <Typography variant='body2' component='p'>
-                          Blood Type: {donation.donor?.bloodType}
-                        </Typography>
-                        <Typography variant='body2' component='p'>
-                          Email: {donation.donor?.email}
-                        </Typography>
-                        <Typography variant='body2' component='p'>
-                          Location: {donation.donor?.location}
+                          Location: {donation.requester?.location}
                         </Typography>
                       </>
                     )}
