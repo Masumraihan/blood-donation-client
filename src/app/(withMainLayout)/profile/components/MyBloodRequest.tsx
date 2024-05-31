@@ -8,7 +8,7 @@ import { redirect } from "next/navigation";
 const MyBloodRequest = async () => {
   const cookieStore = cookies();
   const token = cookieStore.get(authKey.token);
-  if (!token) {
+  if (!token?.value) {
     return redirect("/login");
   }
 
@@ -18,6 +18,7 @@ const MyBloodRequest = async () => {
     },
   });
   const result = await res.json();
+  console.log(result);
   const data = result?.data as TMyBloodInfo[];
 
   return (
@@ -67,14 +68,14 @@ const MyBloodRequest = async () => {
                     <Typography variant='body2' component='p'>
                       Reason: {request.reason}
                     </Typography>
+                    <Typography variant='body2' component='p'>
+                      Donor: {request?.donor?.name}
+                    </Typography>
+                    <Typography variant='body2' component='p'>
+                      Blood Type: {request.donor?.bloodType}
+                    </Typography>
                     {request.requestStatus === requestStatus.APPROVED && (
                       <>
-                        <Typography variant='body2' component='p'>
-                          Donor: {request?.donor?.name}
-                        </Typography>
-                        <Typography variant='body2' component='p'>
-                          Blood Type: {request.donor?.bloodType}
-                        </Typography>
                         <Typography variant='body2' component='p'>
                           Email: {request.donor?.email}
                         </Typography>

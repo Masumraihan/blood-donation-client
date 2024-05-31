@@ -34,14 +34,18 @@ const registerFormSchema = z.object({
   age: z.string({ required_error: "Age is required" }),
   bio: z.string({ required_error: "Bio is required" }),
   location: z.string({ required_error: "Location is required" }),
-  lastDonationDate: z.any({ required_error: "Last donation date is required" }).refine(
-    (val) => {
-      return typeof dayjs(val).format("DD MMMM YYYY") === "string";
-    },
-    {
-      message: "Please Provide a valid date",
-    },
-  ),
+  isDonate: z.string({ required_error: "Please select an option" }),
+  lastDonationDate: z
+    .any({ required_error: "Last donation date is required" })
+    .refine(
+      (val) => {
+        return typeof dayjs(val).format("DD MMMM YYYY") === "string";
+      },
+      {
+        message: "Please Provide a valid date",
+      },
+    )
+    .optional(),
   password: z
     .string({ required_error: "Password is required" })
     .min(6, { message: "Password must be at least 6 characters" }),
@@ -60,6 +64,7 @@ const RegisterForm = () => {
     setError("");
     values.lastDonationDate = dayjs(values.lastDonationDate).format("DD MMMM YYYY");
     values.age = parseInt(values.age);
+    values.isDonate = values.isDonate === "Yes";
 
     if (confirmPassword !== values.password) {
       return setError("password and confirm password not matched");
@@ -67,6 +72,7 @@ const RegisterForm = () => {
 
     try {
       const res = await register(values);
+      console.log(res);        
       if (res.success) {
         toast.success("Register successful");
         const loginResponse = await login({ email: values.email, password: values.password }, "/");
@@ -86,15 +92,15 @@ const RegisterForm = () => {
   };
 
   const defaultValues = {
-    name: "user",
-    email: "user@gmail.com",
+    name: "donor 1",
+    email: "donor1@gmail.com",
     password: "123456",
     confirmPassword: "123456",
-    bloodType: "B_POSITIVE",
-    age: "22",
-    bio: "this is bio",
+    bloodType: "O_POSITIVE",
+    age: "41",
+    bio: "this is donor 1 bio",
+    isDonate: "Yes",
     location: "Dhaka",
-    lastDonationDate: dayjs(new Date().getDate()),
   };
 
   return (
@@ -122,7 +128,15 @@ const RegisterForm = () => {
           <CSelect fullWidth label='Location' name='location' items={citiesItems} />
         </Grid>
         <Grid item xs={12} md={6}>
-          <CDatePicker name='lastDonationDate' fullWidth label='Last Donation Date' disableFuture />
+          <CSelect fullWidth label='Donate Blood' name='isDonate' items={["Yes", "No"]} />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <CDatePicker
+            name='lastDonationDate'
+            fullWidth
+            label='Last Donation Date (Optional)'
+            disableFuture
+          />
         </Grid>
         <Grid item xs={12} md={6}>
           <CInput

@@ -39,7 +39,11 @@ const Footer = () => {
           </Grid>
           <Grid item>
             <Box display='flex' justifyContent='center'>
-              <Link href='#' color='inherit' sx={{ mx: 1 }}>
+              <Link
+                href='https://www.facebook.com/mdmasum.raihan.378/'
+                color='inherit'
+                sx={{ mx: 1 }}
+              >
                 <Facebook />
               </Link>
               <Link href='#' color='inherit' sx={{ mx: 1 }}>
@@ -48,7 +52,11 @@ const Footer = () => {
               <Link href='#' color='inherit' sx={{ mx: 1 }}>
                 <Instagram />
               </Link>
-              <Link href='#' color='inherit' sx={{ mx: 1 }}>
+              <Link
+                href='https://www.linkedin.com/in/md-masum-raihan-35b22b1ab/'
+                color='inherit'
+                sx={{ mx: 1 }}
+              >
                 <LinkedIn />
               </Link>
             </Box>

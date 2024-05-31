@@ -5,7 +5,7 @@ import { authKey } from "@/constants";
 const baseApi = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000/api",
+    baseUrl: "https://blood-donation-phi.vercel.app/api",
     prepareHeaders: (headers) => {
       headers.set("Content-Type", "application/json");
 
