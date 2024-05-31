@@ -18,7 +18,7 @@ const userApi = baseApi.injectEndpoints({
         return {
           url: "/my-profile",
           method: "PUT",
-          data,
+          body: data,
         };
       },
       invalidatesTags: [tagTypes.USER],
@@ -29,14 +29,29 @@ const userApi = baseApi.injectEndpoints({
         return {
           url: "/change-password",
           method: "PATCH",
-          data,
+          body: data,
         };
       },
+    }),
+    updateUser: build.mutation({
+      query: ({ data, id }) => {
+        console.log({ data }, "data from api");
+        return {
+          url: `/user/${id}`,
+          method: "PATCH",
+          body: data,
+        };
+      },
+      invalidatesTags: [tagTypes.USER],
     }),
   }),
 });
 
-export const { useGetMyProfileQuery, useUpdateProfileMutation, useChangePasswordMutation } =
-  userApi;
+export const {
+  useGetMyProfileQuery,
+  useUpdateProfileMutation,
+  useChangePasswordMutation,
+  useUpdateUserMutation,
+} = userApi;
 
 export default userApi;

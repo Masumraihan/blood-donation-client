@@ -1,9 +1,14 @@
 import DonorPagination from "@/app/(withMainLayout)/donors/components/DonorPagination";
 import FilterBloodDonors from "@/components/homePage/FilterBloodDonors";
-import DonorCard from "@/components/shared/DonorCard/DonorCard";
+import { authKey } from "@/constants";
 import generateDonorListApiURL from "@/helpers/axios/generateApiUrl";
 import { TResponseSuccess, TUser } from "@/types";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box } from "@mui/material";
+import { cookies } from "next/headers";
+import UserData from "./components/UserData";
+import dynamic from "next/dynamic";
+import { tagTypes } from "@/redux/tagTypes";
+
 type TParams = {
   searchTerm?: string;
   bloodType?: string;
@@ -12,6 +17,7 @@ type TParams = {
   page?: string;
 };
 const UsersPage = async ({ searchParams }: { searchParams?: TParams }) => {
+  const cookie = cookies();
   const URL = generateDonorListApiURL(
     `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/user-list?limit=12`,
     {
@@ -25,8 +31,11 @@ const UsersPage = async ({ searchParams }: { searchParams?: TParams }) => {
   const res = await fetch(`${URL}`, {
     method: "GET",
     headers: {
-      "Content-Type": "application/json",
+      authorization: cookie.get(authKey.token)?.value || "",
     },
+    next: {
+      tags: [tagTypes.USER],
+    }
   });
 
   const result = (await res.json()) as TResponseSuccess<TUser[]>;
@@ -41,20 +50,7 @@ const UsersPage = async ({ searchParams }: { searchParams?: TParams }) => {
   return (
     <>
       <FilterBloodDonors />
-
-      <Grid container spacing={3} sx={{ my: ".5rem" }}>
-        {!data.length ? (
-          <Typography variant='h5' sx={{ textAlign: "center", mt: "1rem" }}>
-            No data found
-          </Typography>
-        ) : (
-          data?.map((donor) => (
-            <Grid item xs={12} md={4} lg={3} key={donor.id}>
-              <DonorCard donor={donor} />
-            </Grid>
-          ))
-        )}
-      </Grid>
+      <UserData data={data} />
       <Box sx={{ textAlign: "center", pt: "1rem" }}>
         <DonorPagination count={totalPages} />
       </Box>

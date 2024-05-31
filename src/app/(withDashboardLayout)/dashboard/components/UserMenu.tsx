@@ -4,7 +4,6 @@ import { useGetMyProfileQuery } from "@/redux/featues/user/userApi";
 
 const UserMenu = () => {
   const { data } = useGetMyProfileQuery({});
-  console.log(data);
 
   return (
     <div>

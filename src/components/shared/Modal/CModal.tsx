@@ -55,7 +55,7 @@ const CModal = ({ children, title, open, setOpen, sx }: TCModalProps) => {
         >
           <CloseIcon />
         </IconButton>
-        <DialogContent dividers sx={{ width: "100%" }}>
+        <DialogContent dividers sx={{ width: "100%", height: "100%", backgroundColor: "#ffffff" }}>
           {children}
         </DialogContent>
       </BootstrapDialog>

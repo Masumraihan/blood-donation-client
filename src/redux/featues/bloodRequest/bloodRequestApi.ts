@@ -8,7 +8,7 @@ const bloodRequestApi = baseApi.injectEndpoints({
       query: ({ data, id }) => ({
         url: `/donation-request/${id}`,
         method: "PUT",
-        data: data,
+        body: data,
       }),
     }),
   }),

@@ -4,6 +4,7 @@ import CSelect from "@/components/forms/CSelect";
 import CModal from "@/components/shared/Modal/CModal";
 import { useUpdateDonationStatusMutation } from "@/redux/featues/bloodRequest/bloodRequestApi";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { LoadingButton } from "@mui/lab";
 import { Box, Button } from "@mui/material";
 import { revalidateTag } from "next/cache";
 import { FieldValues, SubmitHandler } from "react-hook-form";
@@ -23,7 +24,7 @@ type TEditDonationStatusModalProps = {
 };
 
 const EditDonationStatusModal = ({ open, setOpen, id }: TEditDonationStatusModalProps) => {
-  const [updateStatus] = useUpdateDonationStatusMutation();
+  const [updateStatus, { isLoading }] = useUpdateDonationStatusMutation();
 
   const handleSubmit: SubmitHandler<FieldValues> = async (values) => {
     try {
@@ -49,9 +50,15 @@ const EditDonationStatusModal = ({ open, setOpen, id }: TEditDonationStatusModal
           resolver={zodResolver(editDonationStatusSchema)}
         >
           <CSelect label='Status' name='requestStatus' fullWidth items={["APPROVED", "REJECTED"]} />
-          <Button type='submit' fullWidth sx={{ mt: 2 }}>
+          <LoadingButton
+            variant='contained'
+            loading={isLoading}
+            type='submit'
+            fullWidth
+            sx={{ mt: 2 }}
+          >
             Update
-          </Button>
+          </LoadingButton>
         </CForm>
       </CModal>
     </Box>

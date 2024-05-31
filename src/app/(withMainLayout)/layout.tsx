@@ -1,16 +1,14 @@
 import Footer from "@/components/shared/Footer/Footer";
+import Navbar from "@/components/shared/Navbar/Navbar";
 import { Box } from "@mui/material";
-import dynamic from "next/dynamic";
 import React from "react";
-
-const NoSSRNavbar = dynamic(() => import("@/components/shared/Navbar/Navbar"));
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <NoSSRNavbar>
+      <Navbar>
         <Box sx={{ minHeight: "calc(100vh - 280px)" }}>{children}</Box>
-      </NoSSRNavbar>
+      </Navbar>
       <Footer />
     </>
   );

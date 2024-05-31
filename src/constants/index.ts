@@ -1,5 +1,3 @@
-
-
 export const BloodTypes: string[] = [
   "A_POSITIVE",
   "A_NEGATIVE",
@@ -24,6 +22,11 @@ export const requestStatus = {
 export const userRole = {
   DONOR: "DONOR",
   ADMIN: "ADMIN",
+};
+
+export const userStatus = {
+  ACTIVE: "ACTIVE",
+  DEACTIVATE: "DEACTIVATE",
 };
 
 export const navItems = [
@@ -103,4 +106,3 @@ export const allCities = [
   { name: "Sunamganj", latitude: 25.0657, longitude: 91.395 },
   { name: "Sylhet", latitude: 24.8949, longitude: 91.8687 },
 ];
-
