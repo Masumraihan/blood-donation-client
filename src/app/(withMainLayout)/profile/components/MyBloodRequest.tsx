@@ -18,7 +18,6 @@ const MyBloodRequest = async () => {
     },
   });
   const result = await res.json();
-  console.log(result);
   const data = result?.data as TMyBloodInfo[];
 
   return (

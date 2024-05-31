@@ -12,6 +12,7 @@ import { Typography } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import dayjs from "dayjs";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FieldValues } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -72,12 +73,11 @@ const RegisterForm = () => {
 
     try {
       const res = await register(values);
-      console.log(res);        
       if (res.success) {
-        toast.success("Register successful");
         const loginResponse = await login({ email: values.email, password: values.password }, "/");
         if (loginResponse.success) {
-          localStorage.setItem(authKey.token, res?.data?.token);
+          toast.success("Registration successful");
+          localStorage.setItem(authKey.token, loginResponse?.data?.token);
         } else {
           setError(res.message || "something went wrong");
         }
@@ -92,15 +92,15 @@ const RegisterForm = () => {
   };
 
   const defaultValues = {
-    name: "donor 1",
-    email: "donor1@gmail.com",
-    password: "123456",
-    confirmPassword: "123456",
-    bloodType: "O_POSITIVE",
-    age: "41",
-    bio: "this is donor 1 bio",
-    isDonate: "Yes",
-    location: "Dhaka",
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    bloodType: "",
+    age: "",
+    bio: "",
+    isDonate: "",
+    location: "",
   };
 
   return (
