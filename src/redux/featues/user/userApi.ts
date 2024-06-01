@@ -43,6 +43,15 @@ const userApi = baseApi.injectEndpoints({
       },
       invalidatesTags: [tagTypes.USER],
     }),
+    getSingleUser: build.query({
+      query: (id) => {
+        return {
+          url: `/user/${id}`,
+        };
+      },
+      transformResponse: (response: { data: TUser }) => response.data,
+      providesTags: [tagTypes.USER],
+    }),
   }),
 });
 
@@ -51,6 +60,7 @@ export const {
   useUpdateProfileMutation,
   useChangePasswordMutation,
   useUpdateUserMutation,
+  useGetSingleUserQuery,
 } = userApi;
 
 export default userApi;

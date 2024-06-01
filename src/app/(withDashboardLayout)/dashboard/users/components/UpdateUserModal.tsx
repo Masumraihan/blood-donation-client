@@ -3,12 +3,13 @@ import CForm from "@/components/forms/CForm";
 import CSelect from "@/components/forms/CSelect";
 import CModal from "@/components/shared/Modal/CModal";
 import { userRole, userStatus } from "@/constants";
-import { useUpdateUserMutation } from "@/redux/featues/user/userApi";
+import { useGetSingleUserQuery, useUpdateUserMutation } from "@/redux/featues/user/userApi";
 import { tagTypes } from "@/redux/tagTypes";
 import revalidateData from "@/services/actions/revalidateData";
+import { TUser } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoadingButton } from "@mui/lab";
-import { Button, Stack } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
@@ -27,12 +28,11 @@ type TEditDonationStatusModalProps = {
 };
 
 const UpdateUserModal = ({ open, setOpen, id }: TEditDonationStatusModalProps) => {
-  const [updateUser, { isLoading }] = useUpdateUserMutation();
-
+  const [updateUser, { isLoading: dataLoading }] = useUpdateUserMutation();
+  const { data, isLoading } = useGetSingleUserQuery(id);
   const handleSubmit: SubmitHandler<FieldValues> = async (values) => {
     try {
       const res = await updateUser({ data: values, id }).unwrap();
-
       if (res?.success) {
         toast.success("Status updated successfully");
         revalidateData(tagTypes.USER);
@@ -41,6 +41,11 @@ const UpdateUserModal = ({ open, setOpen, id }: TEditDonationStatusModalProps) =
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const defaultValues = {
+    role: data?.role,
+    status: data?.status,
   };
 
   return (
@@ -59,26 +64,40 @@ const UpdateUserModal = ({ open, setOpen, id }: TEditDonationStatusModalProps) =
           zIndex: 999,
         }}
       >
-        <CForm onSubmit={handleSubmit} resolver={zodResolver(updateUserSchema)}>
-          <Stack spacing={2}>
-            <CSelect label='Role' name='role' fullWidth items={[userRole.ADMIN, userRole.DONOR]} />
-            <CSelect
-              label='Status'
-              name='status'
-              fullWidth
-              items={[userStatus.ACTIVE, userStatus.DEACTIVATE]}
-            />
-          </Stack>
-          <LoadingButton
-            variant='contained'
-            loading={isLoading}
-            type='submit'
-            fullWidth
-            sx={{ mt: 2 }}
+        {isLoading ? (
+          <Typography>Loading....</Typography>
+        ) : (
+          <CForm
+            onSubmit={handleSubmit}
+            resolver={zodResolver(updateUserSchema)}
+            defaultValues={defaultValues}
           >
-            Update
-          </LoadingButton>
-        </CForm>
+            <Stack spacing={2}>
+              <CSelect
+                label='Role'
+                name='role'
+                fullWidth
+                items={[userRole.ADMIN, userRole.DONOR]}
+              />
+              <CSelect
+                label='Status'
+                name='status'
+                fullWidth
+                items={[userStatus.ACTIVE, userStatus.DEACTIVATE]}
+              />
+            </Stack>
+            <LoadingButton
+              variant='contained'
+              loading={isLoading}
+              type='submit'
+              fullWidth
+              sx={{ mt: 2 }}
+              disabled={dataLoading}
+            >
+              Update
+            </LoadingButton>
+          </CForm>
+        )}
       </CModal>
     </>
   );

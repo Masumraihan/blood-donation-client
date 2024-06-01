@@ -7,6 +7,11 @@ import UpdateUserModal from "./UpdateUserModal";
 import { useState } from "react";
 const UserData = ({ data }: { data: TUser[] }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState("");
+  const handleOpenModal = (id: string) => {
+    setIsModalOpen(true);
+    setSelectedId(id);
+  };
 
   const columns: GridColDef[] = [
     { field: "name", headerName: "Name", flex: 1 },
@@ -33,11 +38,10 @@ const UserData = ({ data }: { data: TUser[] }) => {
             }}
           >
             <>
-              <IconButton onClick={() => setIsModalOpen(true)} aria-label='edit'>
+              <IconButton onClick={() => handleOpenModal(row.id)} aria-label='edit'>
                 <EditIcon />
               </IconButton>
             </>
-            <UpdateUserModal open={isModalOpen} setOpen={setIsModalOpen} id={row?.id} />
           </Box>
         );
       },
@@ -47,6 +51,9 @@ const UserData = ({ data }: { data: TUser[] }) => {
   return (
     <Box>
       <DataGrid rows={data} columns={columns} hideFooter />
+      {selectedId && (
+        <UpdateUserModal open={isModalOpen} setOpen={setIsModalOpen} id={selectedId} />
+      )}
     </Box>
   );
 };
