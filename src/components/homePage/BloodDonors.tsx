@@ -11,7 +11,7 @@ const BloodDonors = async ({
 }: {
   searchParams?: { searchTerm?: string; bloodType?: string; availability?: string };
 }) => {
-  const URL = generateDonorListApiURL(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/donor-list?limit=10`, {
+  const URL = generateDonorListApiURL(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/donor-list?limit=12`, {
     searchTerm: searchParams?.searchTerm,
     bloodType: searchParams?.bloodType,
     availability: searchParams?.availability,
