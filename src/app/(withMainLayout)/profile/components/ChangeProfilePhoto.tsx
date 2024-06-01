@@ -1,6 +1,7 @@
 "use client";
 import placeholder from "@/assets/user_placeholder.png";
 import { useUpdateProfileMutation } from "@/redux/featues/user/userApi";
+import revalidateData from "@/services/actions/revalidateData";
 import { TImageBBResponse } from "@/types";
 import uploadIntoImageBB from "@/utils/uploadImageIntoImageBB";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
@@ -25,9 +26,10 @@ const ChangeProfilePhoto = ({ photo }: { photo: string | null | undefined }) => 
         const profileImageResponse = await updateProfile({
           photo: res.data.url,
         }).unwrap();
-        if (profileImageResponse?.id) {
+
+        if (profileImageResponse?.success) {
           toast.success("Profile image changed successfully");
-          router.refresh();
+          revalidateData("profile")
         }
       } catch (error) {
         console.log(error);

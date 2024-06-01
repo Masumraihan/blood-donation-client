@@ -4,24 +4,27 @@ import UpdateProfileModal from "./UpdateProfileModal";
 import { useState } from "react";
 import { TUser } from "@/types";
 import ChangePasswordModal from "./ChangePasswordModal";
+import Link from "next/link";
 
 const UpdateProfileButton = ({ data }: { data: TUser | undefined }) => {
   const [open, setOpen] = useState(false);
-  const [changeModalOpen, setChangeModalOpen] = useState(false);
+  //const [changeModalOpen, setChangeModalOpen] = useState(false);
   return (
     <>
       <Button onClick={() => setOpen((pre) => !pre)} variant='text' sx={{ marginLeft: "1rem" }}>
         Edit
       </Button>
       <Button
-        onClick={() => setChangeModalOpen((pre) => !pre)}
+        //onClick={() => setChangeModalOpen((pre) => !pre)}
+        LinkComponent={Link}
+        href='/profile/change-password'
         variant='text'
         sx={{ marginLeft: "1rem" }}
       >
         Change Password
       </Button>
       <UpdateProfileModal open={open} setOpen={setOpen} data={data} />
-      <ChangePasswordModal open={changeModalOpen} setOpen={setChangeModalOpen} />
+      {/*<ChangePasswordModal open={changeModalOpen} setOpen={setChangeModalOpen} />*/}
     </>
   );
 };
